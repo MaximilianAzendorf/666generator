@@ -31,6 +31,9 @@
 			{/if}
 		</div>
 	</div>
+	<footer>
+		<a href="https://github.com/MaximilianAzendorf/666generator">GitHub</a>
+	</footer>
 </main>
 
 <style>
@@ -47,5 +50,19 @@
 	#root > *
 	{
 		margin-bottom: 1em;
+	}
+
+	footer
+	{
+		position: fixed;
+		bottom: 0.2em;
+		right: 0.4em;
+	}
+
+	footer a
+	{
+		font-size: 0.6em;
+		text-decoration: none;
+		color: var(--muted-white);
 	}
 </style>

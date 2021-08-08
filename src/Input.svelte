@@ -35,4 +35,10 @@
         outline: 0 solid transparent;
         border-bottom: 2px solid white;
     }
+
+    .name-input::selection
+    {
+        background-color: white;
+        color: var(--primary);
+    }
 </style>

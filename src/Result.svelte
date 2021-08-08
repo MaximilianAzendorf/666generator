@@ -31,11 +31,21 @@
 
         return result;
     }
+
+    function tooShortHeuristic(): boolean
+    {
+        return inputText.length < 6
+    }
 </script>
 
 <main>
     {#if !result}
         Not yet <span class="l1">.</span><span class="l2">.</span><span class="l3">.</span>
+        {#if tooShortHeuristic()}
+            <div class="tooShortHint">
+                (That name may be too short)
+            </div>
+        {/if}
     {:else}
         <div class="yes">Yes</div>
         <div class="because">because:</div>
@@ -57,6 +67,11 @@
 </main>
 
 <style>
+    .tooShortHint
+    {
+        color: var(--muted-white);
+    }
+
     .yes
     {
         font-size: 96pt;

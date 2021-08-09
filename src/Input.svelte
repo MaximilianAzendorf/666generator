@@ -1,11 +1,25 @@
 <script lang="ts">
     import {parse} from "./logic/input-parse";
     import type {Expression} from "./logic/expression";
+    import {createEventDispatcher} from "svelte";
 
     export let value: Expression;
     export let inputText: string = "";
 
+    const hitEnter = createEventDispatcher();
+
+    $: inputText = checkAndSanitize(inputText);
     $: value = parse(inputText);
+
+    function checkAndSanitize(text: string): string
+    {
+        text = text.replace(/&nbsp;$/, " ");
+        text = text.replace(/&[^;]+;/g, "");
+        text = text.replace(/<[^>]+>/g, "");
+        text = text.replace(/[^a-zA-Z ]/g, "");
+        text = text.replace(/ $/, "&nbsp;");
+        return text;
+    }
 </script>
 
 <main>

@@ -40,7 +40,7 @@
         running = false;
     }
 
-    function startTrying(): void
+    export function startTrying(): void
     {
         output = null;
         abort = false;

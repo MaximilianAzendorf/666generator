@@ -6,6 +6,12 @@
     --base-size: 20pt;
 }
 
+*::selection
+{
+    background-color: white;
+    color: var(--primary);
+}
+
 body
 {
     background-color: var(--primary);

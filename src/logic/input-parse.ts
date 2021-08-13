@@ -33,3 +33,13 @@ export function parse(text: string): number[]
 {
     return parseWords(text);
 }
+
+export function checkAndSanitize(text: string): string
+{
+    text = text.replace(/&nbsp;$/, " ");
+    text = text.replace(/&[^;]+;/g, "");
+    text = text.replace(/<[^>]+>/g, "");
+    text = text.replace(/[^a-zA-Z ]/g, "");
+    text = text.replace(/ $/, "&nbsp;");
+    return text;
+}

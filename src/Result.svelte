@@ -1,6 +1,7 @@
 <script lang="ts">
     import type {Expression} from "./logic/expression";
     import {toInfixString} from "./logic/expression";
+    import {checkAndSanitize} from "./logic/input-parse";
 
     export let inputText: string;
     export let result: Expression;
@@ -21,6 +22,7 @@
 
     function computeMatchingTextParts(infixParts: string[], text: string)
     {
+        text = checkAndSanitize(text);
         text = text.toUpperCase().replace(/[^A-Z]/, "");
         let result = [];
         let textIndex = 0;

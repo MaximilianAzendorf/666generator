@@ -8,13 +8,16 @@
 
     const hitEnter = createEventDispatcher();
 
-    $: inputText = checkAndSanitize(inputText);
+    let rawInputText: string = "";
+
+    $: rawInputText = checkAndSanitize(rawInputText);
+    $: inputText = checkAndSanitize(rawInputText, true);
     $: value = parse(inputText);
 </script>
 
 <main>
     <span class="input-text">
-        Is <span class="name-input" spellcheck="false" bind:innerHTML={inputText} contenteditable="true" /> the anti-christ?
+        Is <span class="name-input" spellcheck="false" bind:innerHTML={rawInputText} contenteditable="true" /> the anti-christ?
     </span>
 </main>
 

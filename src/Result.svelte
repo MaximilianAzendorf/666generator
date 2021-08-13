@@ -36,7 +36,7 @@
 
     function tooShortHeuristic(): boolean
     {
-        return inputText.length < 6
+        return checkAndSanitize(inputText, true).length < 8;
     }
 </script>
 

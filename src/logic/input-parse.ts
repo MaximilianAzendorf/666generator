@@ -34,12 +34,16 @@ export function parse(text: string): number[]
     return parseWords(text);
 }
 
-export function checkAndSanitize(text: string): string
+export function checkAndSanitize(text: string, removeTrailingWhitespace: boolean = false): string
 {
     text = text.replace(/&nbsp;$/, " ");
     text = text.replace(/&[^;]+;/g, "");
     text = text.replace(/<[^>]+>/g, "");
     text = text.replace(/[^a-zA-Z ]/g, "");
-    text = text.replace(/ $/, "&nbsp;");
+
+    if (!removeTrailingWhitespace)
+        text = text.replace(/ $/, "&nbsp;");
+    if (removeTrailingWhitespace)
+        text = text.trimEnd();
     return text;
 }

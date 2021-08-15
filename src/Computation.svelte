@@ -1,29 +1,31 @@
 <script lang="ts">
-    import type {Expression} from "./logic/expression";
     import {find666} from "./logic/expression-generator";
-    import {scoreExpression} from "./logic/expression-score";
+    import {scoreExpressionRPN} from "./logic/expression-score";
+    import type {Expression} from "./logic/expression";
 
     export let input: number[];
     export let inputText: string;
     export let activeInput: number[];
     export let activeInputText: string;
     export let output: Expression;
+    export let outputScore: number;
     export let running: boolean;
 
     $: input, stopTrying();
+    $: outputScore = scoreExpressionRPN(output);
 
     const STEP_MILLISECONDS = 20;
     let abort: boolean = false;
 
     function try666(): Expression
     {
-        return find666(activeInput, STEP_MILLISECONDS);
+        return find666(activeInput, STEP_MILLISECONDS, outputScore < 1);
     }
 
     function tryForever(): void
     {
         let newResult = try666();
-        if (scoreExpression(newResult) < scoreExpression(output))
+        if (scoreExpressionRPN(newResult) < outputScore)
         {
             output = newResult;
         }

@@ -1,22 +1,29 @@
+import {classifyRPNExpression, evalRPNExpression} from "./expression-eval-rpn";
 import type {Expression} from "./expression";
-import {classifyExpression, evalExpression, Op, OpArray} from "./expression";
+import {OpArray} from "./expression";
+import {number} from "svelte-i18n";
+import {infixToRPN} from "./expression-infix";
 
 const MAX_FAILS = 1000;
 
-export function anyExpression(numbers: number[]): Expression
+function randomOp()
 {
-    let exp: Expression = [...numbers];
+    return OpArray[Math.floor(Math.random() * OpArray.length)];
+}
+
+export function anyExpressionRPN(numbers: number[]): Expression
+{
+    let exp = [...numbers] as Expression;
     let fails = 0;
 
-    while (classifyExpression(exp) == "incomplete")
+    while (classifyRPNExpression(exp) == "incomplete")
     {
-        let opIdx = Math.floor(Math.random() * OpArray.length);
         let expIdx = Math.floor(Math.random() * exp.length) + 1;
 
         let newExp = [...exp];
-        newExp.splice(expIdx, 0, OpArray[opIdx]);
+        newExp.splice(expIdx, 0, randomOp());
 
-        if (classifyExpression(newExp) == "invalid")
+        if (classifyRPNExpression(newExp) == "invalid")
         {
             fails++;
             if (fails > MAX_FAILS) return null;
@@ -26,19 +33,33 @@ export function anyExpression(numbers: number[]): Expression
         exp = newExp;
     }
 
-    return classifyExpression(exp) == "invalid" ? null : exp;
+    return classifyRPNExpression(exp) == "invalid" ? null : exp;
 }
 
-export function find666(numbers: number[], timeoutMilliseconds: number): Expression
+export function anyExpressionInfix(numbers: number[]): Expression
+{
+    let exp = [...numbers] as Expression;
+
+    for(let i = 1; i < exp.length; i += 2)
+    {
+        exp.splice(i, 0, randomOp());
+    }
+
+    return infixToRPN(exp);
+}
+
+export function find666(numbers: number[], timeoutMilliseconds: number, onlyInfix = false): Expression
 {
     let exp = null;
     let start = Date.now();
 
-    while (evalExpression(exp) != 666)
+    while (Date.now() - start < timeoutMilliseconds)
     {
-        if (Date.now() - start > timeoutMilliseconds) return null;
-        exp = anyExpression(numbers);
+        let infixOrRPN = onlyInfix || Math.random() >= 0.5;
+        exp = infixOrRPN ? anyExpressionInfix(numbers) : anyExpressionRPN(numbers);
+
+        if (evalRPNExpression(exp) == 666) return exp;
     }
 
-    return exp;
+    return null;
 }

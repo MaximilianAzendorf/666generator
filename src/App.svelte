@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Input from "./Input.svelte";
-	import type {Expression} from "./logic/expression";
 	import Result from "./Result.svelte";
 	import Computation from "./Computation.svelte";
+	import type {Expression} from "./logic/expression";
 
 	let input: number[] = [];
 	let inputText: string = "";

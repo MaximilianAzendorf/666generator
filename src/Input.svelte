@@ -1,7 +1,7 @@
 <script lang="ts">
     import {checkAndSanitize, parse} from "./logic/input-parse";
-    import type {Expression} from "./logic/expression";
     import {createEventDispatcher} from "svelte";
+    import type {Expression} from "./logic/expression";
 
     export let value: Expression;
     export let inputText: string = "";

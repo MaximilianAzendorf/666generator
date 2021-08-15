@@ -1,12 +1,12 @@
 <script lang="ts">
-    import type {Expression} from "./logic/expression";
-    import {toInfixString} from "./logic/expression";
+    import {RPNToString} from "./logic/expression-eval-rpn";
     import {checkAndSanitize} from "./logic/input-parse";
+    import type {Expression} from "./logic/expression";
 
     export let inputText: string;
     export let result: Expression;
 
-    $: infix = toInfixString(result);
+    $: infix = RPNToString(result);
     $: infixParts = computeInfixParts(infix);
     $: textParts = computeMatchingTextParts(infixParts, inputText);
 

@@ -1,5 +1,6 @@
 import type {Expression} from "./expression";
-import {Op, OpArray, toInfixString} from "./expression";
+import {RPNToString} from "./expression-eval-rpn";
+import {Op, OpArray} from "./expression";
 
 function scoreParenthesis(expression: Expression)
 {
@@ -8,7 +9,7 @@ function scoreParenthesis(expression: Expression)
     let depth = 0;
     let maxDepth = 0;
     let count = 0;
-    for (let char of toInfixString(expression))
+    for (let char of RPNToString(expression))
     {
         if (char == '(')
         {
@@ -26,29 +27,31 @@ function scoreParenthesis(expression: Expression)
     return 1 + depth + (1 - Math.pow(0.5, count));
 }
 
-function scoreOpBreaks(expression: Expression)
+function countBreaks(sequence: string[]): number
 {
     let breaks = -1;
-    let totalOps = 0;
-    let lastOp: Op = null;
+    let lastElem = null;
 
-    for (let char of toInfixString(expression))
+    for (let elem of sequence)
     {
-        if (!OpArray.includes(char as Op)) continue;
-
-        totalOps++;
-        if (char != lastOp) breaks++;
-        lastOp = char as Op;
+        if (elem != lastElem) breaks++;
+        lastElem = elem;
     }
 
-    return breaks / totalOps;
+    return breaks / sequence.length;
 }
 
-export function scoreExpression(expression: Expression): number
+function scoreOpBreaksRPN(expression: Expression)
+{
+    let ops = [...RPNToString(expression)].filter(c => OpArray.includes(c as Op));
+    return countBreaks(ops);
+}
+
+export function scoreExpressionRPN(expression: Expression): number
 {
     let parensScore = scoreParenthesis(expression);
 
     return parensScore == 1
-        ? scoreOpBreaks(expression)
+        ? scoreOpBreaksRPN(expression)
         : parensScore;
 }

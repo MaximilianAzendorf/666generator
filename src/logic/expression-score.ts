@@ -24,7 +24,7 @@ function scoreParenthesis(expression: Expression)
         maxDepth = Math.max(maxDepth, depth);
     }
 
-    return 1 + depth + (1 - Math.pow(0.5, count));
+    return 1 + maxDepth + (1 - Math.pow(0.5, count));
 }
 
 function countBreaks(sequence: string[]): number

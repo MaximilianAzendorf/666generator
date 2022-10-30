@@ -1,12 +1,9 @@
 <script lang="ts">
     import {checkAndSanitize, parse} from "./logic/input-parse";
-    import {createEventDispatcher} from "svelte";
     import type {Expression} from "./logic/expression";
 
     export let value: Expression;
     export let inputText: string = "";
-
-    const hitEnter = createEventDispatcher();
 
     let rawInputText: string = "";
 
@@ -17,7 +14,9 @@
 
 <main>
     <span class="input-text">
-        Is <span class="name-input" spellcheck="false" bind:innerHTML={rawInputText} contenteditable="true" /> the anti-christ?
+        Is <span class="name-input" spellcheck="false"
+                 bind:innerHTML={rawInputText}
+                 contenteditable="true" /> the anti-christ?
     </span>
 </main>
 

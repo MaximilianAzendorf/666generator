@@ -15,7 +15,8 @@
 <main>
 	<div id="root">
 		<div id="input">
-			<Input bind:value={input} bind:inputText={inputText} />
+			<Input bind:value={input}
+				   bind:inputText={inputText} />
 		</div>
 		<div id="computation">
 			<Computation bind:input={input}

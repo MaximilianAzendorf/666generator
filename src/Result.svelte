@@ -23,7 +23,7 @@
     function computeMatchingTextParts(infixParts: string[], text: string)
     {
         text = checkAndSanitize(text);
-        text = text.toUpperCase().replace(/[^A-Z]/, "");
+        text = text.toUpperCase().replace(/[^A-Z]/g, "");
         let result = [];
         let textIndex = 0;
         for (let part of infixParts)

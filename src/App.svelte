@@ -33,7 +33,8 @@
 		</div>
 	</div>
 	<footer>
-		<a href="https://github.com/MaximilianAzendorf/666generator">GitHub</a>
+		<a href="https://github.com/MaximilianAzendorf/666generator" target="_blank" rel="noreferrer">GitHub</a>
+		<a href="https://buymeacoffee.com/maximilianazendorf" target="_blank" rel="noreferrer">Support me</a>
 	</footer>
 </main>
 
@@ -56,14 +57,15 @@
 	footer
 	{
 		position: fixed;
-		bottom: 0.2em;
-		right: 0.4em;
+		bottom: 0.6em;
+		right: 0.8em;
 	}
 
 	footer a
 	{
 		font-size: 0.6em;
 		text-decoration: none;
-		color: var(--muted-white);
+		color: white;
+		margin-left: 1em;
 	}
 </style>
